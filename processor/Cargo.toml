@@ -1,0 +1,16 @@
+[package]
+name = "processor"
+version = "0.1.0"
+authors = ["Adrian Fraiha <aef@fastmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+csv = "1.1"
+serde = { version = "1", features = ["derive"] }
+clap = "3.0.0-beta.2"
+chrono = "0.4"
+rand = "0.8.3"
+assert_matches = "1.5.0"
+
