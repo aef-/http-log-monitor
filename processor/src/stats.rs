@@ -52,8 +52,13 @@ mod tests {
 
     #[test]
     fn it_gets_request_method_and_path_info() {
-        let results = get_request_method_and_path_info(&"DELETE /12345678/1/2 HTTP/1.0".to_string());
-        let expected = ("DELETE".to_string(), "/12345678/1/2".to_string(), "12345678".to_string());
+        let results =
+            get_request_method_and_path_info(&"DELETE /12345678/1/2 HTTP/1.0".to_string());
+        let expected = (
+            "DELETE".to_string(),
+            "/12345678/1/2".to_string(),
+            "12345678".to_string(),
+        );
         assert_eq!(results.0, expected.0);
         assert_eq!(results.1, expected.1);
         assert_eq!(results.2, expected.2);
@@ -63,14 +68,13 @@ mod tests {
         assert_eq!(results.0, expected.0);
         assert_eq!(results.1, expected.1);
         assert_eq!(results.2, expected.2);
-
     }
 
     #[test]
     fn it_builds_summary_stats() {
         let mut records = VecDeque::new();
         let now = 1_500_000_000;
-        let later = 1_600_000_000;
+        let _later = 1_600_000_000;
 
         let mut http_errors = HashMap::new();
         http_errors.insert(200, 2);
@@ -80,57 +84,51 @@ mod tests {
         section_hits.insert("/api".to_string(), 3);
         section_hits.insert("/".to_string(), 1);
 
-        records.push_back(
-            Record {
-                remotehost: "0.0.0.1".to_string(),
-                rfc931: "-".to_string(),
-                authuser: "apache".to_string(),
-                date: now,
-                bytes: 9999,
-                status: 200,
-                request: "GET /api/user HTTP/1.0".to_string()
-            }           
-        );
-        records.push_back(
-            Record {
-                remotehost: "0.0.0.1".to_string(),
-                rfc931: "-".to_string(),
-                authuser: "apache".to_string(),
-                date: now,
-                bytes: 9999,
-                status: 200,
-                request: "GET /api/user HTTP/1.0".to_string()
-            }           
-        );
-        records.push_back(
-            Record {
-                remotehost: "0.0.0.1".to_string(),
-                rfc931: "-".to_string(),
-                authuser: "apache".to_string(),
-                date: now,
-                bytes: 9999,
-                status: 400,
-                request: "GET /api/user HTTP/1.0".to_string()
-            }           
-        );
-        records.push_back(
-            Record {
-                remotehost: "0.0.0.1".to_string(),
-                rfc931: "-".to_string(),
-                authuser: "apache".to_string(),
-                date: now,
-                bytes: 9999,
-                status: 500,
-                request: "GET / HTTP/1.0".to_string()
-            }           
-        );
-        assert_matches!(build_summary_stats(&records), SummaryStats {
-            from_date: now,
-            to_date: later,
-            total_hits: 4,
-            section_hits,
-            http_errors,
+        records.push_back(Record {
+            remotehost: "0.0.0.1".to_string(),
+            rfc931: "-".to_string(),
+            authuser: "apache".to_string(),
+            date: now,
+            bytes: 9999,
+            status: 200,
+            request: "GET /api/user HTTP/1.0".to_string(),
         });
+        records.push_back(Record {
+            remotehost: "0.0.0.1".to_string(),
+            rfc931: "-".to_string(),
+            authuser: "apache".to_string(),
+            date: now,
+            bytes: 9999,
+            status: 200,
+            request: "GET /api/user HTTP/1.0".to_string(),
+        });
+        records.push_back(Record {
+            remotehost: "0.0.0.1".to_string(),
+            rfc931: "-".to_string(),
+            authuser: "apache".to_string(),
+            date: now,
+            bytes: 9999,
+            status: 400,
+            request: "GET /api/user HTTP/1.0".to_string(),
+        });
+        records.push_back(Record {
+            remotehost: "0.0.0.1".to_string(),
+            rfc931: "-".to_string(),
+            authuser: "apache".to_string(),
+            date: now,
+            bytes: 9999,
+            status: 500,
+            request: "GET / HTTP/1.0".to_string(),
+        });
+        assert_matches!(
+            build_summary_stats(&records),
+            SummaryStats {
+                from_date: _now,
+                to_date: _later,
+                total_hits: 4,
+                section_hits: _section_hits,
+                http_errors: _http_errors,
+            }
+        );
     }
-
 }

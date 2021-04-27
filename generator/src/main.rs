@@ -1,5 +1,5 @@
-use processor::Record;
 use chrono::prelude::Utc;
+use processor::Record;
 use rand::seq::SliceRandom;
 use rand::{thread_rng, Rng};
 use std::error::Error;

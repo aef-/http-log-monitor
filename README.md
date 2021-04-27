@@ -56,7 +56,6 @@ Tested with rustc 1.51.0
 ## TODO
 * Better error handling -- remove unwraps/panics and bubble up errors
 * Use enum for "display" CLI arguments
-* Move alert logic out of main
 * Benchmark tests!
 * Use Tui for CLI display
 * Include additional statistics such as top 3 IP addresses and basic anomaly alerts

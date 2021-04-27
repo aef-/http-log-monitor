@@ -1,20 +1,11 @@
+use super::alerts::Alert;
 use super::stats::SummaryStats;
-use std::error::Error;
+use std::io::Error;
 mod cli;
 
-type Date = i64;
-pub enum Status {
-    Start(Date),
-    InProgress,
-    End(Date),
-}
-pub enum Alert {
-    HighTraffic(Status),
-}
-
 pub trait Display {
-    fn summary_stats(&self, stats: SummaryStats) -> Result<(), Box<dyn Error>>;
-    fn alert(&self, alert: &Alert) -> Result<(), Box<dyn Error>>;
+    fn summary_stats(&self, stats: SummaryStats) -> Result<(), Error>;
+    fn alert(&self, alert: &Alert) -> Result<(), Error>;
 }
 
 pub fn get_display(name: &str) -> Box<dyn Display> {
@@ -40,4 +31,3 @@ mod tests {
         get_display("fake-display");
     }
 }
-
